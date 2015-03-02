@@ -78,7 +78,14 @@ import snow.window.WindowSystem;
                 js.Browser.document.body.appendChild(_handle);
 
                 //:todo: These options need to be exposed and documented
-            var _gl_context = _handle.getContextWebGL({ alpha:false, premultipliedAlpha:false });
+            var _gl_context = _handle.getContextWebGL({ 
+                alpha: false, 
+                premultipliedAlpha: false,
+                depth: render_config.depth,
+                stencil: render_config.stencil,
+                antialias: render_config.antialiasing > 0,
+                preserveDrawingBuffer : false,
+            });
                 //early out on no possible context
             if(_gl_context == null) {
                 var msg =  'WebGL is required to run this!<br/><br/>';
