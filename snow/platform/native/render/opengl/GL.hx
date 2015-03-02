@@ -48,7 +48,12 @@ class GLObject {
     } //set_invalidated
 }
 
-abstract GLUniformLocation(Int) from Int to Int {}
+abstract GLUniformLocation(Null<Int>) from Int{
+    @:op(A == B) inline public function equality(rhs:Null<Int>) return rhs == null ? this < 0 : this == rhs; //allow for comparison with null
+    @:op(A != B) inline public function invEquality(rhs:Null<Int>) return !equality(rhs);
+    @:to inline public function toInt():Int return this == null ? -1 : this;
+}
+
 class GLBO extends GLObject { override function toString() return 'GLBuffer($id)'; }
 class GLFBO extends GLObject { override function toString() return 'GLFramebuffer($id)'; }
 class GLRBO extends GLObject { override function toString() return 'GLRenderbuffer($id)'; }
